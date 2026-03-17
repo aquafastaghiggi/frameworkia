@@ -61,3 +61,11 @@ Stack trace:
 #6 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
 #7 {main}
   thrown in C:\xampp\htdocs\framework\app\Documents\SpreadsheetReader.php on line 10
+[17-Mar-2026 21:09:41 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\TextReader" not found in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php:19
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#1 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#2 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#4 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19

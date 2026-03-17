@@ -14,11 +14,13 @@ class DocumentManager
     protected array $readers;
 
     public function __construct()
-{
-    $this->readers = [
-        new SpreadsheetReader(),
-    ];
-}
+    {
+        $this->readers = [
+            new TextReader(),
+            new SpreadsheetReader(),
+            new PdfReader(),
+        ];
+    }
 
     public function read(string $filePath): array
     {
