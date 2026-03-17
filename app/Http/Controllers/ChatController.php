@@ -107,8 +107,7 @@ class ChatController extends Controller
         $result = $this->chatService->send($prompt, $context);
 
         if (!$result['success']) {
-            $this->json($result, 400);
-            return;
+            throw new \RuntimeException($result['message'] ?? 'Erro ao processar chat com IA.');
         }
 
         if (!isset($_SESSION['chat_history']) || !is_array($_SESSION['chat_history'])) {
@@ -130,27 +129,17 @@ class ChatController extends Controller
         $_SESSION['last_ai_response'] = $result['response'];
         $_SESSION['last_ai_file_path'] = $filePath;
 
-        $this->json([
-            'success' => true,
-            'message' => 'Chat processado com sucesso.',
+        $this->success('Chat processado com sucesso.', [
             'response' => $result['response'],
             'history' => $_SESSION['chat_history'],
         ]);
-    } catch (\Throwable $e) {
-        $this->json([
-            'success' => false,
-            'message' => 'Erro interno no chat: ' . $e->getMessage(),
-        ], 500);
-    }
 }
 
     public function clear(Request $request): void
     {
         $_SESSION['chat_history'] = [];
 
-        $this->json([
-            'success' => true,
-            'message' => 'Histórico limpo com sucesso.',
+        $this->success('Histórico limpo com sucesso.', [
             'history' => [],
         ]);
     }

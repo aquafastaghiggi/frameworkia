@@ -25,67 +25,49 @@ class UploadController extends Controller
 
     public function upload(Request $request): void
     {
-        try {
-            if (!isset($_FILES['attachment']) || !is_array($_FILES['attachment'])) {
-                throw new RuntimeException('Nenhum arquivo enviado.');
-            }
-
-            $uploaded = $this->uploads->upload($_FILES['attachment']);
-
-            if (!isset($_SESSION['uploaded_attachments']) || !is_array($_SESSION['uploaded_attachments'])) {
-                $_SESSION['uploaded_attachments'] = [];
-            }
-
-            array_unshift($_SESSION['uploaded_attachments'], $uploaded);
-            $_SESSION['uploaded_attachments'] = array_slice($_SESSION['uploaded_attachments'], 0, 20);
-
-            $this->json([
-                'success' => true,
-                'message' => 'Arquivo enviado com sucesso.',
-                'file' => $uploaded,
-                'attachments' => $_SESSION['uploaded_attachments'],
-            ]);
-        } catch (RuntimeException $e) {
-            $this->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+        if (!isset($_FILES['attachment']) || !is_array($_FILES['attachment'])) {
+            throw new RuntimeException('Nenhum arquivo enviado.');
         }
+
+        $uploaded = $this->uploads->upload($_FILES['attachment']);
+
+        if (!isset($_SESSION['uploaded_attachments']) || !is_array($_SESSION['uploaded_attachments'])) {
+            $_SESSION['uploaded_attachments'] = [];
+        }
+
+        array_unshift($_SESSION['uploaded_attachments'], $uploaded);
+        $_SESSION['uploaded_attachments'] = array_slice($_SESSION['uploaded_attachments'], 0, 20);
+
+        $this->success('Arquivo enviado com sucesso.', [
+            'file' => $uploaded,
+            'attachments' => $_SESSION['uploaded_attachments'],
+        ]);
     }
 
     public function delete(Request $request): void
     {
-        try {
-            $relativePath = (string) $request->input('path');
+        $relativePath = (string) $request->input('path');
 
-            if ($relativePath === '') {
-                throw new RuntimeException('Arquivo não informado.');
-            }
-
-            $basePath = dirname(__DIR__, 3);
-            $fullPath = $basePath . '/' . ltrim(str_replace('\\', '/', $relativePath), '/');
-
-            if (is_file($fullPath)) {
-                @unlink($fullPath);
-            }
-
-            if (isset($_SESSION['uploaded_attachments']) && is_array($_SESSION['uploaded_attachments'])) {
-                $_SESSION['uploaded_attachments'] = array_values(array_filter(
-                    $_SESSION['uploaded_attachments'],
-                    fn($a) => ($a['relative_path'] ?? '') !== $relativePath
-                ));
-            }
-
-            $this->json([
-                'success' => true,
-                'message' => 'Anexo removido.',
-                'attachments' => $_SESSION['uploaded_attachments'] ?? [],
-            ]);
-        } catch (\Throwable $e) {
-            $this->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+        if ($relativePath === '') {
+            throw new RuntimeException('Arquivo não informado.');
         }
+
+        $basePath = dirname(__DIR__, 3);
+        $fullPath = $basePath . '/' . ltrim(str_replace('\\', '/', $relativePath), '/');
+
+        if (is_file($fullPath)) {
+            @unlink($fullPath);
+        }
+
+        if (isset($_SESSION['uploaded_attachments']) && is_array($_SESSION['uploaded_attachments'])) {
+            $_SESSION['uploaded_attachments'] = array_values(array_filter(
+                $_SESSION['uploaded_attachments'],
+                fn($a) => ($a['relative_path'] ?? '') !== $relativePath
+            ));
+        }
+
+        $this->success('Anexo removido.', [
+            'attachments' => $_SESSION['uploaded_attachments'] ?? [],
+        ]);
     }
 }

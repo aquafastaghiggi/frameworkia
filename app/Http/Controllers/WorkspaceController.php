@@ -243,20 +243,11 @@ public function applyAiSuggestion(Request $request): void
         $path = (string) $request->input('path');
         $content = (string) $request->input('content');
 
-        try {
-            $this->workspace->writeFile($path, $content);
+        $this->workspace->writeFile($path, $content);
 
-            $this->json([
-                'success' => true,
-                'message' => 'Arquivo salvo com sucesso.',
-                'path' => $path,
-            ]);
-        } catch (RuntimeException $e) {
-            $this->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
-        }
+        $this->success('Arquivo salvo com sucesso.', [
+            'path' => $path,
+        ]);
     }
 
     public function stageFile(Request $request): void
@@ -264,24 +255,15 @@ public function applyAiSuggestion(Request $request): void
         $rootPath = $this->workspace->getRootPath();
         $path = (string) $request->input('path');
 
-        try {
-            if (!$rootPath || !$this->git->isRepository($rootPath)) {
-                throw new RuntimeException('Workspace atual não é um repositório Git.');
-            }
-
-            $this->git->stageFile($rootPath, $path);
-
-            $this->json([
-                'success' => true,
-                'message' => 'Arquivo adicionado ao stage.',
-                'path' => $path,
-            ]);
-        } catch (RuntimeException $e) {
-            $this->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
         }
+
+        $this->git->stageFile($rootPath, $path);
+
+        $this->success('Arquivo adicionado ao stage.', [
+            'path' => $path,
+        ]);
     }
 
     public function commit(Request $request): void
@@ -289,23 +271,14 @@ public function applyAiSuggestion(Request $request): void
         $rootPath = $this->workspace->getRootPath();
         $message = (string) $request->input('message');
 
-        try {
-            if (!$rootPath || !$this->git->isRepository($rootPath)) {
-                throw new RuntimeException('Workspace atual não é um repositório Git.');
-            }
-
-            $output = $this->git->commit($rootPath, $message);
-
-            $this->json([
-                'success' => true,
-                'message' => 'Commit realizado com sucesso.',
-                'output' => $output,
-            ]);
-        } catch (RuntimeException $e) {
-            $this->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
         }
+
+        $output = $this->git->commit($rootPath, $message);
+
+        $this->success('Commit realizado com sucesso.', [
+            'output' => $output,
+        ]);
     }
 }
