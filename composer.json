@@ -1,0 +1,17 @@
+{
+  "name": "seunome/mini-ai-framework",
+  "description": "Mini framework local em PHP com integração de IA",
+  "type": "project",
+  "require": {
+    "php": ">=8.2",
+    "phpoffice/phpspreadsheet": "^5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "test": []
+  }
+}
