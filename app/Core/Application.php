@@ -13,14 +13,24 @@ class Application
     protected Request $request;
     protected Response $response;
     protected View $view;
+    protected Logger $logger;
 
     public function __construct(
         protected string $basePath
     ) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['request_id'])) {
+            $_SESSION['request_id'] = bin2hex(random_bytes(8));
+        }
+
         $this->router = new Router();
         $this->request = new Request();
         $this->response = new Response();
         $this->view = new View($this->basePath);
+        $this->logger = new Logger($this->basePath);
 
         $this->setupErrorHandlers();
     }
@@ -55,15 +65,14 @@ class Application
 
     public function handleException(Throwable $e): void
     {
-        // Log do erro
-        error_log(sprintf(
-            "[%s] %s in %s:%d\nStack trace:\n%s",
-            date('Y-m-d H:i:s'),
-            $e->getMessage(),
-            $e->getFile(),
-            $e->getLine(),
-            $e->getTraceAsString()
-        ));
+        // Log estruturado do erro
+        $this->logger->error($e->getMessage(), [
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => explode("\n", $e->getTraceAsString()),
+            'uri' => $this->request->uri(),
+            'method' => $this->request->method()
+        ], 'error');
 
         // Se for uma requisição AJAX ou API, retornar JSON
         if ($this->request->isAjax() || str_starts_with($this->request->uri(), '/api')) {
@@ -98,6 +107,11 @@ class Application
 
     public function run(): void
     {
+        $this->logger->info("Request: {$this->request->method()} {$this->request->uri()}", [
+            'query' => $this->request->allQuery(),
+            'input' => array_diff_key($this->request->allInput(), ['password' => '', 'api_key' => ''])
+        ]);
+
         try {
             $routes = require $this->basePath . '/routes/web.php';
 

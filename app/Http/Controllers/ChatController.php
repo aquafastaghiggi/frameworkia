@@ -8,6 +8,7 @@ use App\AI\ChatService;
 use App\AI\MockAIProvider;
 use App\AI\OpenAIProvider;
 use App\Core\Controller;
+use App\Core\Logger;
 use App\Core\Request;
 use App\Core\Response;
 use App\Core\View;
@@ -40,6 +41,7 @@ class ChatController extends Controller
         }
 
         $this->chatService = new ChatService($provider);
+        $this->chatService->setLogger(new Logger($basePath));
         $this->workspace = new WorkspaceManager($basePath);
         $this->git = new GitService();
         $this->documents = new DocumentManager();

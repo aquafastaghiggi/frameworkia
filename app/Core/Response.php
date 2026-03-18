@@ -11,9 +11,13 @@ class Response
     public function html(string $content, int $status = 200): void
     {
         http_response_code($status);
-        header('Content-Type: text/html; charset=UTF-8');
+        if (PHP_SAPI !== 'cli') {
+            header('Content-Type: text/html; charset=UTF-8');
+        }
         echo $content;
-        exit;
+        if (PHP_SAPI !== 'cli') {
+            exit;
+        }
     }
 
     public function json(array $data, int $status = 200): void
@@ -90,8 +94,12 @@ class Response
     public function text(string $content, int $status = 200): void
     {
         http_response_code($status);
-        header('Content-Type: text/plain; charset=UTF-8');
+        if (PHP_SAPI !== 'cli') {
+            header('Content-Type: text/plain; charset=UTF-8');
+        }
         echo $content;
-        exit;
+        if (PHP_SAPI !== 'cli') {
+            exit;
+        }
     }
 }

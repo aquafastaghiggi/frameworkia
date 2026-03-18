@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace App\AI;
 
 use Throwable;
+use App\Core\Logger;
 
 class ChatService
 {
+    protected ?Logger $logger = null;
+
     public function __construct(
         protected AIProviderInterface $provider
     ) {
+    }
+
+    public function setLogger(Logger $logger): void
+    {
+        $this->logger = $logger;
     }
 
     public function send(string $prompt, array $context = []): array
@@ -28,8 +36,19 @@ class ChatService
         $role = $context['role'] ?? 'dev';
         $context['system_instruction'] = $this->getSystemInstructionByRole($role);
 
+        if ($this->logger) {
+            $this->logger->ai('PROMPT', $prompt, [
+                'role' => $role,
+                'context_keys' => array_keys($context)
+            ]);
+        }
+
         try {
             $response = $this->provider->respond($prompt, $context);
+
+            if ($this->logger) {
+                $this->logger->ai('RESPONSE', $response);
+            }
 
             return [
                 'success' => true,
@@ -37,6 +56,12 @@ class ChatService
                 'response' => $response,
             ];
         } catch (Throwable $e) {
+            if ($this->logger) {
+                $this->logger->error('Erro na IA: ' . $e->getMessage(), [
+                    'trace' => $e->getTraceAsString()
+                ], 'ai');
+            }
+
             return [
                 'success' => false,
                 'message' => $e->getMessage(),
