@@ -148,7 +148,7 @@ class WorkspaceManager
         return $content;
     }
 
-    public function writeFile(string $relativePath, string $content): void
+    public function writeFile(string $relativePath, string $content, bool $validate = false): void
     {
         $path = $this->resolvePath($relativePath);
 
@@ -160,10 +160,38 @@ class WorkspaceManager
             throw new RuntimeException('Arquivo sem permissão de escrita.');
         }
 
+        if ($validate) {
+            $this->validateSyntax($path, $content);
+        }
+
         $result = file_put_contents($path, $content);
 
         if ($result === false) {
             throw new RuntimeException('Não foi possível salvar o arquivo.');
+        }
+    }
+
+    public function validateSyntax(string $path, string $content): void
+    {
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        if ($extension !== 'php') {
+            return;
+        }
+
+        $tmpFile = tempnam(sys_get_temp_dir(), 'php_check_');
+        file_put_contents($tmpFile, $content);
+
+        $output = [];
+        $returnVar = 0;
+        exec("php -l " . escapeshellarg($tmpFile) . " 2>&1", $output, $returnVar);
+
+        unlink($tmpFile);
+
+        if ($returnVar !== 0) {
+            $errorMessage = implode("\n", $output);
+            $errorMessage = str_replace($tmpFile, basename($path), $errorMessage);
+            throw new RuntimeException("Erro de sintaxe PHP detectado: " . $errorMessage);
         }
     }
 

@@ -102,13 +102,11 @@ public function applyAiSuggestion(Request $request): void
             }
 
             $this->workspace->createBackup($filePath);
-            $this->workspace->writeFile($filePath, $newContent);
+            $this->workspace->writeFile($filePath, $newContent, true);
 
             $_SESSION['last_applied_ai_file'] = $filePath;
 
-            $this->json([
-                'success' => true,
-                'message' => 'Substituição parcial aplicada com sucesso. Backup criado.',
+            $this->success('Substituição parcial aplicada com sucesso. Backup criado.', [
                 'path' => $filePath,
                 'mode' => 'replace',
             ]);
@@ -122,13 +120,11 @@ public function applyAiSuggestion(Request $request): void
         }
 
         $this->workspace->createBackup($filePath);
-        $this->workspace->writeFile($filePath, $code);
+        $this->workspace->writeFile($filePath, $code, true);
 
         $_SESSION['last_applied_ai_file'] = $filePath;
 
-        $this->json([
-            'success' => true,
-            'message' => 'Arquivo completo aplicado com sucesso. Backup criado.',
+        $this->success('Arquivo completo aplicado com sucesso. Backup criado.', [
             'path' => $filePath,
             'mode' => 'full',
         ]);
