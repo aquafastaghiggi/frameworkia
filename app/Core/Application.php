@@ -152,7 +152,8 @@ class Application
             $this->router->dispatch(
                 $this->request,
                 $this->response,
-                $this->view
+                $this->view,
+                $this->logger
             );
         } catch (Throwable $e) {
             $this->handleException($e);

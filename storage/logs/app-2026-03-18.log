@@ -6,3 +6,68 @@
 {"timestamp":"2026-03-18 11:19:07","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
 {"timestamp":"2026-03-18 11:31:17","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
 {"timestamp":"2026-03-18 11:58:07","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:29","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:32","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:38","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:42","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:43","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:43","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:04:43","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:37:45","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:37:57","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:38:03","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 12:56:09","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:01:52","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:04:21","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:04:46","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:05:12","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:05:33","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:05:47","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:05:49","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:07:59","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:08:32","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:09:22","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:09:25","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:10:32","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:10:54","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:12:28","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:14:10","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"99f2208e93f0e886","ip":"::1"}
+{"timestamp":"2026-03-18 13:14:21","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:14:59","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:15:19","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:17:42","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"5cbaefb0bc725d4c","ip":"::1"}
+{"timestamp":"2026-03-18 13:20:04","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:22:30","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:29:28","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php.ai.bak"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:29:38","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php.ai.bak"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:02","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php.ai.bak"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:05","level":"INFO","message":"Request: POST /workspace/open","context":{"query":[],"input":{"root_path":"C:\\xampp\\htdocs\\controlepcp"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:05","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:07","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:30","level":"INFO","message":"Request: POST /workspace/apply-ai","context":{"query":[],"input":{"file_path":", /teste-ia.php"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:31:33","level":"INFO","message":"Request: POST /chat/send","context":{"query":[],"input":{"prompt":"escreva um texto no centro da tela de hello worlds","file_path":", /teste-ia.php","current_path":"","attachment_path":""}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:32:12","level":"INFO","message":"Request: POST /workspace/apply-ai","context":{"query":[],"input":{"file_path":", /teste-ia.php"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:43:52","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:44:03","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:48:59","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:01","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:05","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:06","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:07","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:07","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:08","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:08","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:08","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:08","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:08","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:10","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:38","level":"INFO","message":"Request: POST /chat/send","context":{"query":[],"input":{"prompt":"escreva um seja bem vindo na pagina","file_path":", /teste-ia.php","current_path":"","attachment_path":""}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:49:43","level":"INFO","message":"Request: POST /workspace/apply-ai","context":{"query":[],"input":{"file_path":", /teste-ia.php"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:04","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:10","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:15","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:18","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:24","level":"INFO","message":"Request: POST /workspace/open","context":{"query":[],"input":{"root_path":"C:\\xampp\\htdocs\\controlepcp"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:50:24","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:56:45","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 13:56:50","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}

@@ -74,7 +74,7 @@ class WorkspaceManager
         return is_string($root) && is_dir($root);
     }
 
-    public function listFiles(string $relativePath = "): array
+    public function listFiles(string $relativePath = ""): array
     {
         $root = $this->getRootPath();
 

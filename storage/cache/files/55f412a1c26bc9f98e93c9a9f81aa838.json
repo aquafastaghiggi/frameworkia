@@ -1,0 +1,57 @@
+[
+    {
+        "name": ".codex",
+        "path": ", \/.codex",
+        "type": "dir"
+    },
+    {
+        "name": "api",
+        "path": ", \/api",
+        "type": "dir"
+    },
+    {
+        "name": "assets",
+        "path": ", \/assets",
+        "type": "dir"
+    },
+    {
+        "name": "db",
+        "path": ", \/db",
+        "type": "dir"
+    },
+    {
+        "name": "src",
+        "path": ", \/src",
+        "type": "dir"
+    },
+    {
+        "name": ".editorconfig",
+        "path": ", \/.editorconfig",
+        "type": "file"
+    },
+    {
+        "name": ".gitignore",
+        "path": ", \/.gitignore",
+        "type": "file"
+    },
+    {
+        "name": "index.php",
+        "path": ", \/index.php",
+        "type": "file"
+    },
+    {
+        "name": "logo.jpg",
+        "path": ", \/logo.jpg",
+        "type": "file"
+    },
+    {
+        "name": "README.md",
+        "path": ", \/README.md",
+        "type": "file"
+    },
+    {
+        "name": "teste-ia.php",
+        "path": ", \/teste-ia.php",
+        "type": "file"
+    }
+]

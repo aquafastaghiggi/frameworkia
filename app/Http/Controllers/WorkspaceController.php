@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\AI\AiResponseStore;
+use App\Core\Application;
 use App\Core\Controller;
 use App\Core\Request;
 use App\Core\Response;
@@ -19,18 +21,21 @@ class WorkspaceController extends Controller
     protected WorkspaceManager $workspace;
     protected GitService $git;
     protected DiffApplier $diffApplier;
-    protected string $baseUrl = '/framework/public';
+    protected string $baseUrl;
     protected ChatHistoryManager $chatHistoryManager;
+    protected AiResponseStore $aiResponseStore;
 
     public function __construct(View $view, Response $response, Logger $logger)
     {
         parent::__construct($view, $response, $logger);
+        $this->baseUrl = rtrim(Application::config('app.url') ?? '', '/');
         $basePath = dirname(__DIR__, 3);
 
         $this->workspace = new WorkspaceManager($basePath);
         $this->git = new GitService();
         $this->diffApplier = new DiffApplier();
         $this->chatHistoryManager = new ChatHistoryManager($basePath);
+        $this->aiResponseStore = new AiResponseStore($basePath);
     }
 
     public function index(Request $request): void
@@ -110,8 +115,7 @@ class WorkspaceController extends Controller
     public function applyAiSuggestion(Request $request): void
     {
         $filePath = (string) $request->input('file_path');
-        $lastResponse = (string) ($_SESSION['last_ai_response'] ?? '');
-        $lastResponseFile = (string) ($_SESSION['last_ai_file_path'] ?? '');
+        [$lastResponse, $lastResponseFile] = $this->resolveLastAiResponse();
 
         try {
             if ($filePath === '') {
@@ -331,6 +335,27 @@ class WorkspaceController extends Controller
             'output' => $output,
             'current' => $branch,
         ]);
+    }
+
+    protected function resolveLastAiResponse(): array
+    {
+        $lastResponse = (string) ($_SESSION['last_ai_response'] ?? '');
+        $lastResponseFile = (string) ($_SESSION['last_ai_file_path'] ?? '');
+
+        if ($lastResponse === '') {
+            $stored = $this->aiResponseStore->load();
+            $lastResponse = (string) ($stored['response'] ?? '');
+            $lastResponseFile = (string) ($stored['file_path'] ?? '');
+
+            if ($lastResponse !== '') {
+                $_SESSION['last_ai_response'] = $lastResponse;
+                if ($lastResponseFile !== '') {
+                    $_SESSION['last_ai_file_path'] = $lastResponseFile;
+                }
+            }
+        }
+
+        return [$lastResponse, $lastResponseFile];
     }
 
     protected function extractDiffBlock(string $text): ?string

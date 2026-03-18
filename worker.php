@@ -6,6 +6,7 @@ require_once __DIR__ .
 '/vendor/autoload.php';
 
 use App\Core\Application;
+use App\AI\AiResponseStore;
 use App\AI\ChatService;
 use App\AI\MockAIProvider;
 use App\AI\OpenAIProvider;
@@ -19,10 +20,11 @@ use App\Core\Logger;
 
 // Inicializa a aplicação para ter acesso às configurações e ao logger
     $app = new Application(dirname(__DIR__, 2));
-$logger = new Logger(dirname(__DIR__, 2));
+    $logger = new Logger(dirname(__DIR__, 2));
 
     $queueService = new QueueService(dirname(__DIR__, 2));
     $chatHistoryManager = new ChatHistoryManager(dirname(__DIR__, 2));
+    $aiResponseStore = new AiResponseStore(dirname(__DIR__, 2));
 
 // Configura o provedor de IA
         $aiConfig = require dirname(__DIR__, 2) . 
@@ -105,6 +107,10 @@ while (true) {
 'success'
 ]) {
                         $chatHistoryManager->addMessage("assistant", $result["response"]);
+                        $aiResponseStore->save($result["response"], $context['file_path'] ?? '', [
+                            'prompt' => $prompt,
+                            'job_id' => $job['id'],
+                        ]);
 
                         $queueService->markJobAsCompleted($job[
 'id'

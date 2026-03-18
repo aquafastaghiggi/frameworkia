@@ -12,7 +12,7 @@
     <pre style="background: #f4f4f4; padding: 16px; border: 1px solid #ccc; overflow: auto; white-space: pre-wrap;"><?= htmlspecialchars($content ?? '') ?></pre>
 
     <p>
-        <a href="/framework/public/workspace">Voltar para workspace</a>
+        <a href="<?= htmlspecialchars(\App\Core\Application::config('app.url')) ?>/workspace">Voltar para workspace</a>
     </p>
 </body>
 </html>

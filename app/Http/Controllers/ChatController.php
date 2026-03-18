@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\AI\ChatService;
 use App\AI\MockAIProvider;
 use App\AI\OpenAIProvider;
+use App\Cache\FileCacheService;
 use App\Core\Controller;
 use App\Core\Logger;
 use App\Core\Request;
@@ -14,8 +15,9 @@ use App\Core\Response;
 use App\Core\View;
 use App\Documents\DocumentManager;
 use App\Git\GitService;
-use App\Workspace\WorkspaceManager;
 use App\Workspace\FileTree;
+use App\Workspace\WorkspaceIndexer;
+use App\Workspace\WorkspaceManager;
 use App\Chat\ChatHistoryManager;
 use App\Queue\QueueService;
 
@@ -26,14 +28,16 @@ class ChatController extends Controller
     protected GitService $git;
     protected DocumentManager $documents;
     protected FileTree $fileTree;
+    protected WorkspaceIndexer $indexer;
     protected ChatHistoryManager $chatHistoryManager;
     protected QueueService $queueService;
 
-    public function __construct(View $view, Response $response)
+    public function __construct(View $view, Response $response, Logger $logger)
     {
-        parent::__construct($view, $response);
+        parent::__construct($view, $response, $logger);
 
         $basePath = dirname(__DIR__, 3);
+        $cacheService = new FileCacheService($basePath);
 
         $aiConfig = require $basePath . '/config/ai.php';
         $providerName = $aiConfig['provider'] ?? 'mock';
@@ -52,6 +56,7 @@ class ChatController extends Controller
         $this->fileTree = new FileTree();
         $this->chatHistoryManager = new ChatHistoryManager($basePath);
         $this->queueService = new QueueService($basePath);
+        $this->indexer = new WorkspaceIndexer($this->workspace, $cacheService);
     }
 
     public function send(Request $request): void
@@ -60,6 +65,8 @@ class ChatController extends Controller
         $prompt = (string) $request->input('prompt');
         $filePath = (string) $request->input('file_path');
         $currentPath = (string) $request->input('current_path');
+        $_SESSION['last_ai_file_path'] = $filePath;
+        $_SESSION['last_ai_response'] = '';
         $attachmentPaths = $request->input('attachment_paths', []);
         if (!is_array($attachmentPaths)) {
             $attachmentPaths = $attachmentPaths !== '' ? [(string)$attachmentPaths] : [];
@@ -78,6 +85,7 @@ class ChatController extends Controller
         $gitDiff = '';
         $projectStructure = '';
         $attachments = [];
+        $contextFiles = $this->indexer->getContextFiles(5);
 
         if ($filePath !== '') {
             try {
@@ -130,6 +138,7 @@ class ChatController extends Controller
             'file_content' => $fileContent,
             'git_diff' => $gitDiff,
             'project_structure' => $projectStructure,
+            'context_files' => $contextFiles,
             'attachments' => $attachments,
             'role' => $role,
         ];
