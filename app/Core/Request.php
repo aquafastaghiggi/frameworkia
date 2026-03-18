@@ -7,6 +7,12 @@ namespace App\Core;
 class Request
 {
     protected ?array $jsonData = null;
+    protected array $testData = [];
+
+    public function __construct(array $testData = [])
+    {
+        $this->testData = $testData;
+    }
 
     public function method(): string
     {
@@ -34,6 +40,10 @@ class Request
 
     public function input(string $key, mixed $default = null): mixed
     {
+        if (array_key_exists($key, $this->testData)) {
+            return $this->testData[$key];
+        }
+
         $json = $this->json();
 
         if (array_key_exists($key, $json)) {

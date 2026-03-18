@@ -145,6 +145,9 @@ class ChatController extends Controller
             'response' => $result['response'],
             'history' => $_SESSION['chat_history'],
         ]);
+    } catch (\Throwable $e) {
+        throw $e;
+    }
 }
 
     public function clear(Request $request): void

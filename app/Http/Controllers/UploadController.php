@@ -52,21 +52,35 @@ class UploadController extends Controller
             throw new RuntimeException('Arquivo não informado.');
         }
 
+        // Normalizar o caminho relativo para evitar problemas de barra
+        $relativePath = ltrim(str_replace('\\', '/', $relativePath), '/');
+
         $basePath = dirname(__DIR__, 3);
-        $fullPath = $basePath . '/' . ltrim(str_replace('\\', '/', $relativePath), '/');
+        $fullPath = $basePath . '/' . $relativePath;
+
+        // Verificar se o arquivo está dentro da pasta de uploads por segurança
+        if (!str_starts_with($relativePath, 'storage/uploads/')) {
+            throw new RuntimeException('Acesso não permitido para exclusão.');
+        }
 
         if (is_file($fullPath)) {
-            @unlink($fullPath);
+            if (!@unlink($fullPath)) {
+                throw new RuntimeException('Não foi possível excluir o arquivo físico.');
+            }
         }
 
         if (isset($_SESSION['uploaded_attachments']) && is_array($_SESSION['uploaded_attachments'])) {
             $_SESSION['uploaded_attachments'] = array_values(array_filter(
                 $_SESSION['uploaded_attachments'],
-                fn($a) => ($a['relative_path'] ?? '') !== $relativePath
+                function($a) use ($relativePath) {
+                    $itemPath = ltrim(str_replace('\\', '/', $a['relative_path'] ?? ''), '/');
+                    return $itemPath !== $relativePath;
+                }
             ));
         }
 
-        $this->success('Anexo removido.', [
+        $this->success('Anexo removido com sucesso.', [
+            'path' => $relativePath,
             'attachments' => $_SESSION['uploaded_attachments'] ?? [],
         ]);
     }
