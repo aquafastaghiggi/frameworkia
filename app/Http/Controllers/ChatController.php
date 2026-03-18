@@ -14,6 +14,7 @@ use App\Core\View;
 use App\Documents\DocumentManager;
 use App\Git\GitService;
 use App\Workspace\WorkspaceManager;
+use App\Workspace\FileTree;
 
 class ChatController extends Controller
 {
@@ -21,6 +22,7 @@ class ChatController extends Controller
     protected WorkspaceManager $workspace;
     protected GitService $git;
     protected DocumentManager $documents;
+    protected FileTree $fileTree;
 
     public function __construct(View $view, Response $response)
     {
@@ -41,6 +43,7 @@ class ChatController extends Controller
         $this->workspace = new WorkspaceManager($basePath);
         $this->git = new GitService();
         $this->documents = new DocumentManager();
+        $this->fileTree = new FileTree();
     }
 
     public function send(Request $request): void
@@ -50,10 +53,12 @@ class ChatController extends Controller
         $filePath = (string) $request->input('file_path');
         $currentPath = (string) $request->input('current_path');
         $attachmentPath = (string) $request->input('attachment_path');
+        $role = (string) $request->input('role', 'dev');
 
         $rootPath = $this->workspace->getRootPath() ?? '';
         $fileContent = '';
         $gitDiff = '';
+        $projectStructure = '';
         $attachmentContent = '';
         $attachmentSummary = '';
         $attachmentType = '';
@@ -66,13 +71,18 @@ class ChatController extends Controller
             }
         }
 
-        if ($rootPath && $filePath !== '') {
-            try {
-                if ($this->git->isRepository($rootPath)) {
-                    $gitDiff = $this->git->getDiff($rootPath, $filePath);
+        if ($rootPath) {
+            // Gerar estrutura do projeto
+            $projectStructure = $this->fileTree->generate($rootPath);
+
+            if ($filePath !== '') {
+                try {
+                    if ($this->git->isRepository($rootPath)) {
+                        $gitDiff = $this->git->getDiff($rootPath, $filePath);
+                    }
+                } catch (\Throwable $e) {
+                    $gitDiff = '';
                 }
-            } catch (\Throwable $e) {
-                $gitDiff = '';
             }
         }
 
@@ -98,10 +108,12 @@ class ChatController extends Controller
             'current_path' => $currentPath,
             'file_content' => $fileContent,
             'git_diff' => $gitDiff,
+            'project_structure' => $projectStructure,
             'attachment_path' => $attachmentPath,
             'attachment_type' => $attachmentType,
             'attachment_summary' => $attachmentSummary,
             'attachment_content' => $attachmentContent,
+            'role' => $role,
         ];
 
         $result = $this->chatService->send($prompt, $context);

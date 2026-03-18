@@ -24,6 +24,10 @@ class ChatService
             ];
         }
 
+        // Aplicar role se especificada no contexto
+        $role = $context['role'] ?? 'dev';
+        $context['system_instruction'] = $this->getSystemInstructionByRole($role);
+
         try {
             $response = $this->provider->respond($prompt, $context);
 
@@ -38,5 +42,17 @@ class ChatService
                 'message' => $e->getMessage(),
             ];
         }
+    }
+
+    protected function getSystemInstructionByRole(string $role): string
+    {
+        $roles = [
+            'dev' => "Você é um engenheiro de software sênior focado em escrever código limpo, eficiente e seguro.",
+            'reviewer' => "Você é um revisor de código rigoroso. Analise o código em busca de bugs, falhas de segurança e melhorias de arquitetura.",
+            'debugger' => "Você é um especialista em depuração. Analise erros e logs para encontrar a causa raiz dos problemas.",
+            'architect' => "Você é um arquiteto de software. Foque na estrutura do projeto, padrões de projeto e escalabilidade."
+        ];
+
+        return $roles[$role] ?? $roles['dev'];
     }
 }

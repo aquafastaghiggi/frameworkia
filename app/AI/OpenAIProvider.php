@@ -25,7 +25,7 @@ class OpenAIProvider implements AIProviderInterface
             throw new RuntimeException('API key da OpenAI não configurada.');
         }
 
-        $systemPrompt = $this->buildSystemPrompt();
+        $systemPrompt = $this->buildSystemPrompt($context);
         $userPrompt = $this->buildUserPrompt($prompt, $context);
 
         $payload = [
@@ -101,10 +101,12 @@ class OpenAIProvider implements AIProviderInterface
         return $text;
     }
 
-protected function buildSystemPrompt(): string
+protected function buildSystemPrompt(array $context = []): string
 {
+    $roleInstruction = $context['system_instruction'] ?? "Você é um engenheiro de software sênior atuando dentro de uma IDE.";
+
     return <<<TXT
-Você é um engenheiro de software sênior atuando dentro de uma IDE.
+{$roleInstruction}
 
 Seu objetivo:
 - ajudar a escrever, refatorar e corrigir código
@@ -135,12 +137,13 @@ protected function buildUserPrompt(string $prompt, array $context = []): string
     $currentPath = (string) ($context['current_path'] ?? '');
     $fileContent = (string) ($context['file_content'] ?? '');
     $gitDiff = (string) ($context['git_diff'] ?? '');
+    $projectStructure = (string) ($context['project_structure'] ?? '');
     $attachmentPath = (string) ($context['attachment_path'] ?? '');
     $attachmentType = (string) ($context['attachment_type'] ?? '');
     $attachmentSummary = (string) ($context['attachment_summary'] ?? '');
     $attachmentContent = (string) ($context['attachment_content'] ?? '');
 
-    $filePreview = mb_substr($fileContent, 0, 6000);
+    $filePreview = mb_substr($fileContent, 0, 8000);
     $diffPreview = mb_substr($gitDiff, 0, 4000);
     $attachmentPreview = mb_substr($attachmentContent !== '' ? $attachmentContent : $attachmentSummary, 0, 6000);
 
@@ -148,12 +151,15 @@ protected function buildUserPrompt(string $prompt, array $context = []): string
 PROMPT DO USUÁRIO:
 {$prompt}
 
-CONTEXTO DO PROJETO:
+ESTRUTURA DO PROJETO:
+{$projectStructure}
+
+CONTEXTO ATUAL:
 - Workspace: {$workspace}
 - Pasta atual: {$currentPath}
-- Arquivo: {$filePath}
+- Arquivo Aberto: {$filePath}
 
-CÓDIGO DO ARQUIVO (resumido):
+CÓDIGO DO ARQUIVO ABERTO:
 {$filePreview}
 
 ALTERAÇÕES NÃO COMMITADAS (git diff):
@@ -167,8 +173,8 @@ CONTEÚDO / RESUMO DO ANEXO:
 {$attachmentPreview}
 
 INSTRUÇÃO:
+- Use a ESTRUTURA DO PROJETO para entender a arquitetura e onde criar novos arquivos se necessário.
 - Se houver anexo, considere-o como contexto adicional importante.
-- Se o anexo for planilha, considere abas, colunas e linhas iniciais.
 - Relacione o anexo com o arquivo aberto quando fizer sentido.
 - Seja objetivo e técnico.
 TXT;
