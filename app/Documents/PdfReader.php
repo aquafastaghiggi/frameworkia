@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Documents;
 
 use RuntimeException;
+use Smalot\PdfParser\Parser;
+use Throwable;
 
 class PdfReader implements DocumentReaderInterface
 {
@@ -16,39 +18,35 @@ class PdfReader implements DocumentReaderInterface
     public function read(string $filePath): array
     {
         if (!is_file($filePath)) {
-            throw new RuntimeException('PDF não encontrado.');
+            throw new RuntimeException('Arquivo PDF não encontrado: ' . $filePath);
         }
 
-        $content = file_get_contents($filePath);
+        try {
+            $parser = new Parser();
+            $pdf = $parser->parseFile($filePath);
+            $text = $pdf->getText();
+            
+            // Limpeza básica de espaços extras
+            $text = preg_replace('/\s+/', ' ', $text);
+            $text = trim($text);
 
-        if ($content === false) {
-            throw new RuntimeException('Não foi possível ler o PDF.');
-        }
+            if ($text === '') {
+                return [
+                    'type' => 'pdf',
+                    'summary' => 'O PDF foi lido, mas nenhum texto foi extraído (pode ser um PDF de imagem/escaneado).',
+                    'full_text' => '',
+                    'metadata' => $pdf->getDetails()
+                ];
+            }
 
-        $text = $this->extractBasicText($content);
-        $text = trim($text);
-
-        if ($text === '') {
             return [
                 'type' => 'pdf',
-                'summary' => 'Não foi possível extrair texto útil deste PDF com o leitor básico atual.',
-                'full_text' => '',
+                'summary' => mb_substr($text, 0, 1000) . (mb_strlen($text) > 1000 ? '...' : ''),
+                'full_text' => $text,
+                'metadata' => $pdf->getDetails()
             ];
+        } catch (Throwable $e) {
+            throw new RuntimeException('Erro ao processar o PDF: ' . $e->getMessage());
         }
-
-        return [
-            'type' => 'pdf',
-            'summary' => mb_substr($text, 0, 4000),
-            'full_text' => $text,
-        ];
-    }
-
-    protected function extractBasicText(string $binary): string
-    {
-        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', ' ', $binary);
-        $text = preg_replace('/[^(\x20-\x7E|\x0A|\x0D|\x09)]/', ' ', (string) $text);
-        $text = preg_replace('/\s+/', ' ', (string) $text);
-
-        return trim((string) $text);
     }
 }
