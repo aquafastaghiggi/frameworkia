@@ -10,6 +10,7 @@ use App\Core\Response;
 use App\Core\View;
 use App\Core\Logger;
 use App\Queue\QueueService;
+use App\Security\PermissionGuard;
 use RuntimeException;
 
 class QueueController extends Controller
@@ -25,6 +26,7 @@ class QueueController extends Controller
 
     public function startWorker(Request $request): void
     {
+        PermissionGuard::requireRole();
         // Comando para iniciar o worker em segundo plano
         $command = 'php ' . dirname(__DIR__, 3) . '/worker.php > /dev/null 2>&1 &';
         
@@ -43,6 +45,7 @@ class QueueController extends Controller
 
     public function getJobs(Request $request): void
     {
+        PermissionGuard::requireRole();
         try {
             $jobs = $this->queueService->getAllJobs();
             $this->success('Jobs da fila recuperados com sucesso.', ['jobs' => $jobs]);
@@ -53,6 +56,7 @@ class QueueController extends Controller
 
     public function clearCompletedJobs(Request $request): void
     {
+        PermissionGuard::requireRole();
         try {
             $this->queueService->clearCompletedJobs();
             $this->success('Jobs concluídos da fila limpos com sucesso.');

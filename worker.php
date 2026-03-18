@@ -10,6 +10,8 @@ use App\AI\AiResponseStore;
 use App\AI\ChatService;
 use App\AI\MockAIProvider;
 use App\AI\OpenAIProvider;
+use App\Queue\QueueLogger;
+use App\Queue\QueueMetadataService;
 use App\Queue\QueueService;
 use App\Chat\ChatHistoryManager;
 use App\Workspace\WorkspaceManager;
@@ -23,6 +25,8 @@ use App\Core\Logger;
     $logger = new Logger(dirname(__DIR__, 2));
 
     $queueService = new QueueService(dirname(__DIR__, 2));
+    $queueLogger = new QueueLogger(dirname(__DIR__, 2));
+    $queueMetadata = new QueueMetadataService(dirname(__DIR__, 2));
     $chatHistoryManager = new ChatHistoryManager(dirname(__DIR__, 2));
     $aiResponseStore = new AiResponseStore(dirname(__DIR__, 2));
 
@@ -56,8 +60,9 @@ while (true) {
     try {
         $job = $queueService->getNextJob();
 
-        if ($job) {
-            $logger->info('Processando job: ' . $job[
+            if ($job) {
+                $queueLogger->info('Processando job', $job);
+                $logger->info('Processando job: ' . $job[
 'id'
 ], $job, 'queue');
 
@@ -111,10 +116,11 @@ while (true) {
                             'prompt' => $prompt,
                             'job_id' => $job['id'],
                         ]);
-
                         $queueService->markJobAsCompleted($job[
 'id'
 ], ['response' => $result["response"]]);
+                        $queueMetadata->recordSuccess($job['id'], ['response' => $result["response"]]);
+                        $queueLogger->info('Job concluído com sucesso', ['job_id' => $job['id']]);
                         $logger->info('Job ' . $job[
 'id'
 ] . ' concluído com sucesso.', [], 'queue');
@@ -124,6 +130,11 @@ while (true) {
 ], $result[
 'message'
 ] ?? 'Erro desconhecido ao processar IA.');
+                        $queueMetadata->recordFailure($job['id'], $result['message'] ?? 'Erro desconhecido');
+                        $queueLogger->error('Job falhou ao processar IA', [
+                            'job_id' => $job['id'],
+                            'message' => $result['message'] ?? 'Erro desconhecido',
+                        ]);
                         $logger->error('Job ' . $job[
 'id'
 ] . ' falhou: ' . ($result[

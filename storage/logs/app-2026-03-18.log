@@ -71,3 +71,43 @@
 {"timestamp":"2026-03-18 13:50:24","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
 {"timestamp":"2026-03-18 13:56:45","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
 {"timestamp":"2026-03-18 13:56:50","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 19:25:35","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 19:28:30","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:12:07","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:12:11","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:12:48","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"bde55919ee963d89","ip":"::1"}
+{"timestamp":"2026-03-18 20:13:00","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:13:20","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:14:05","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:15:10","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:21","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:27","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:32","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:35","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:46","level":"INFO","message":"Request: POST /workspace/open","context":{"query":[],"input":{"root_path":"C:\\xampp\\htdocs\\controlepcp"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:46","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:24:50","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:26:31","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:26:37","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:26:50","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:26:54","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:26:58","level":"INFO","message":"Request: POST /chat/send","context":{"query":[],"input":{"prompt":"teste","file_path":", /teste-ia.php","current_path":"","attachment_path":""}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:03","level":"INFO","message":"Request: POST /workspace/apply-ai","context":{"query":[],"input":{"file_path":", /teste-ia.php"}},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:06","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:24","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:27","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:31","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:33","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:27:40","level":"INFO","message":"Request: POST /attachments/upload","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:34:34","level":"INFO","message":"Request: GET /workspace","context":{"query":[],"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:34:46","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:34:54","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:45:57","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:48:39","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 20:48:51","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"f7812c9f600d6949","ip":"::1"}
+{"timestamp":"2026-03-18 20:49:02","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /teste-ia.php"},"input":[]},"request_id":"f7812c9f600d6949","ip":"::1"}
+{"timestamp":"2026-03-18 20:49:07","level":"INFO","message":"Request: POST /chat/clear","context":{"query":[],"input":[]},"request_id":"f7812c9f600d6949","ip":"::1"}
+{"timestamp":"2026-03-18 20:49:09","level":"INFO","message":"Request: POST /workspace/undo-ai","context":{"query":[],"input":{"file_path":", /teste-ia.php"}},"request_id":"f7812c9f600d6949","ip":"::1"}
+{"timestamp":"2026-03-18 21:00:05","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 21:05:47","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}
+{"timestamp":"2026-03-18 21:30:26","level":"INFO","message":"Request: GET /workspace","context":{"query":{"path":"","file":", /index.php"},"input":[]},"request_id":"503cd39720982b30","ip":"::1"}

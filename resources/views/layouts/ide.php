@@ -1,11 +1,14 @@
+<?php
+$baseUrl = $baseUrl ?? \App\Core\Application::config('app.url');
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title ?? 'IDE') ?></title>
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl ?? '') ?>/assets/css/ide.css">
-    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl ?? '') ?>/assets/css/split-editor-terminal.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/ide.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl) ?>/assets/css/split-editor-terminal.css">
 </head>
 <body>
     <div class="ide-shell">

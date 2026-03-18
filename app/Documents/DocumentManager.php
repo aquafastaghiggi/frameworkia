@@ -13,8 +13,11 @@ class DocumentManager
      */
     protected array $readers;
 
+    protected DocumentIntelligence $intelligence;
+
     public function __construct()
     {
+        $this->intelligence = new DocumentIntelligence();
         $this->readers = [
             new TextReader(),
             new SpreadsheetReader(),
@@ -32,9 +35,17 @@ class DocumentManager
                 $data = $reader->read($filePath);
                 $data['file_name'] = $fileName;
                 $data['file_path'] = $filePath;
-                
+
+                $textSource = (string) ($data['full_text'] ?? $data['summary'] ?? '');
+                $data['summary'] = $this->intelligence->summarize($textSource);
+                $data['chunks'] = $this->intelligence->chunk($textSource);
+                $data['insights'] = $this->intelligence->insightData($textSource, [
+                    'type' => $data['type'] ?? '',
+                    'file_name' => $fileName,
+                ]);
+
                 $this->addToIndex($data);
-                
+
                 return $data;
             }
         }
@@ -51,9 +62,11 @@ class DocumentManager
         $path = $document['file_path'];
         $_SESSION['document_index'][$path] = [
             'file_name' => $document['file_name'],
-            'type' => $document['type'],
+            'type' => $document['type'] ?? 'unknown',
             'summary' => $document['summary'],
-            'indexed_at' => date('Y-m-d H:i:s')
+            'chunks' => $document['chunks'] ?? [],
+            'insights' => $document['insights'] ?? [],
+            'indexed_at' => date('Y-m-d H:i:s'),
         ];
     }
 

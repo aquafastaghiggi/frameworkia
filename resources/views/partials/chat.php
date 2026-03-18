@@ -7,7 +7,9 @@
                 <div class="chat-role">
                     <?= $message['role'] === 'user' ? 'Você' : 'IA' ?>
                 </div>
-                <div class="chat-content"><?= nl2br(htmlspecialchars($message['content'])) ?></div>
+                <div class="chat-content">
+                    <?= nl2br(htmlspecialchars($message['message'] ?? $message['content'] ?? '')) ?>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>

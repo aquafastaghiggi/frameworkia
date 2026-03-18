@@ -15,6 +15,7 @@ use App\Utils\DiffApplier;
 use App\Core\Logger;
 use RuntimeException;
 use App\Chat\ChatHistoryManager;
+use App\Security\PermissionGuard;
 
 class WorkspaceController extends Controller
 {
@@ -114,6 +115,7 @@ class WorkspaceController extends Controller
 
     public function applyAiSuggestion(Request $request): void
     {
+        PermissionGuard::requireRole();
         $filePath = (string) $request->input('file_path');
         [$lastResponse, $lastResponseFile] = $this->resolveLastAiResponse();
 
@@ -206,6 +208,7 @@ class WorkspaceController extends Controller
 
     public function open(Request $request): void
     {
+        PermissionGuard::requireRole();
         $path = (string) $request->input('root_path');
 
         try {
@@ -222,6 +225,7 @@ class WorkspaceController extends Controller
 
     public function saveFile(Request $request): void
     {
+        PermissionGuard::requireRole();
         $path = (string) $request->input('path');
         $content = (string) $request->input('content');
 
@@ -234,6 +238,7 @@ class WorkspaceController extends Controller
 
     public function stageFile(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
         $path = (string) $request->input('path');
 
@@ -250,6 +255,7 @@ class WorkspaceController extends Controller
 
     public function commit(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
         $message = (string) $request->input('message');
 
@@ -266,6 +272,7 @@ class WorkspaceController extends Controller
 
     public function pull(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
         $remote = (string) $request->input('remote', 'origin');
         $branch = (string) $request->input('branch');
@@ -283,6 +290,7 @@ class WorkspaceController extends Controller
 
     public function push(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
         $remote = (string) $request->input('remote', 'origin');
         $branch = (string) $request->input('branch');
@@ -300,6 +308,7 @@ class WorkspaceController extends Controller
 
     public function listBranches(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
 
         if (!$rootPath || !$this->git->isRepository($rootPath)) {
@@ -317,6 +326,7 @@ class WorkspaceController extends Controller
 
     public function switchBranch(Request $request): void
     {
+        PermissionGuard::requireRole();
         $rootPath = $this->workspace->getRootPath();
         $branch = (string) $request->input('branch');
         $create = (bool) $request->input('create', false);

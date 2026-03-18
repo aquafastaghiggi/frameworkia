@@ -5,6 +5,11 @@
         "type": "dir"
     },
     {
+        "name": ".tmp",
+        "path": ", \/.tmp",
+        "type": "dir"
+    },
+    {
         "name": "api",
         "path": ", \/api",
         "type": "dir"
@@ -35,6 +40,11 @@
         "type": "file"
     },
     {
+        "name": "dump-controlepcp-202603181655.sql-",
+        "path": ", \/dump-controlepcp-202603181655.sql-",
+        "type": "file"
+    },
+    {
         "name": "index.php",
         "path": ", \/index.php",
         "type": "file"
@@ -45,6 +55,11 @@
         "type": "file"
     },
     {
+        "name": "Matriz.xlsx",
+        "path": ", \/Matriz.xlsx",
+        "type": "file"
+    },
+    {
         "name": "README.md",
         "path": ", \/README.md",
         "type": "file"
@@ -52,6 +67,11 @@
     {
         "name": "teste-ia.php",
         "path": ", \/teste-ia.php",
+        "type": "file"
+    },
+    {
+        "name": "tmp-replace-clear-matrix.js",
+        "path": ", \/tmp-replace-clear-matrix.js",
         "type": "file"
     }
 ]
