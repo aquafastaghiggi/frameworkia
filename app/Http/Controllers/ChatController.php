@@ -52,16 +52,24 @@ class ChatController extends Controller
         $prompt = (string) $request->input('prompt');
         $filePath = (string) $request->input('file_path');
         $currentPath = (string) $request->input('current_path');
-        $attachmentPath = (string) $request->input('attachment_path');
+        $attachmentPaths = $request->input('attachment_paths', []);
+        if (!is_array($attachmentPaths)) {
+            $attachmentPaths = $attachmentPaths !== '' ? [(string)$attachmentPaths] : [];
+        }
+        
+        // Retrocompatibilidade com attachment_path único
+        $singleAttachment = (string) $request->input('attachment_path');
+        if ($singleAttachment !== '' && !in_array($singleAttachment, $attachmentPaths, true)) {
+            $attachmentPaths[] = $singleAttachment;
+        }
+
         $role = (string) $request->input('role', 'dev');
 
         $rootPath = $this->workspace->getRootPath() ?? '';
         $fileContent = '';
         $gitDiff = '';
         $projectStructure = '';
-        $attachmentContent = '';
-        $attachmentSummary = '';
-        $attachmentType = '';
+        $attachments = [];
 
         if ($filePath !== '') {
             try {
@@ -86,19 +94,24 @@ class ChatController extends Controller
             }
         }
 
-        if ($attachmentPath !== '') {
-            $basePath = dirname(__DIR__, 3);
-            $fullAttachmentPath = $basePath . '/' . ltrim(str_replace('\\', '/', $attachmentPath), '/');
-
+        $basePath = dirname(__DIR__, 3);
+        foreach ($attachmentPaths as $path) {
+            $fullPath = $basePath . '/' . ltrim(str_replace('\\', '/', (string)$path), '/');
             try {
-                $document = $this->documents->read($fullAttachmentPath);
-                $attachmentType = (string) ($document['type'] ?? '');
-                $attachmentSummary = (string) ($document['summary'] ?? '');
-                $attachmentContent = (string) ($document['full_text'] ?? '');
+                $document = $this->documents->read($fullPath);
+                $attachments[] = [
+                    'path' => $path,
+                    'type' => (string) ($document['type'] ?? 'unknown'),
+                    'summary' => (string) ($document['summary'] ?? ''),
+                    'content' => (string) ($document['full_text'] ?? ''),
+                ];
             } catch (\Throwable $e) {
-                $attachmentType = 'unknown';
-                $attachmentSummary = 'Falha ao ler o anexo: ' . $e->getMessage();
-                $attachmentContent = '';
+                $attachments[] = [
+                    'path' => $path,
+                    'type' => 'error',
+                    'summary' => 'Falha ao ler o anexo: ' . $e->getMessage(),
+                    'content' => '',
+                ];
             }
         }
 
@@ -109,10 +122,7 @@ class ChatController extends Controller
             'file_content' => $fileContent,
             'git_diff' => $gitDiff,
             'project_structure' => $projectStructure,
-            'attachment_path' => $attachmentPath,
-            'attachment_type' => $attachmentType,
-            'attachment_summary' => $attachmentSummary,
-            'attachment_content' => $attachmentContent,
+            'attachments' => $attachments,
             'role' => $role,
         ];
 

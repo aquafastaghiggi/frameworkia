@@ -138,14 +138,27 @@ protected function buildUserPrompt(string $prompt, array $context = []): string
     $fileContent = (string) ($context['file_content'] ?? '');
     $gitDiff = (string) ($context['git_diff'] ?? '');
     $projectStructure = (string) ($context['project_structure'] ?? '');
-    $attachmentPath = (string) ($context['attachment_path'] ?? '');
-    $attachmentType = (string) ($context['attachment_type'] ?? '');
-    $attachmentSummary = (string) ($context['attachment_summary'] ?? '');
-    $attachmentContent = (string) ($context['attachment_content'] ?? '');
+    $attachments = (array) ($context['attachments'] ?? []);
 
     $filePreview = mb_substr($fileContent, 0, 8000);
     $diffPreview = mb_substr($gitDiff, 0, 4000);
-    $attachmentPreview = mb_substr($attachmentContent !== '' ? $attachmentContent : $attachmentSummary, 0, 6000);
+    
+    $attachmentsContext = "";
+    if (!empty($attachments)) {
+        $attachmentsContext = "\nANEXOS SELECIONADOS:\n";
+        foreach ($attachments as $index => $att) {
+            $num = $index + 1;
+            $path = $att['path'] ?? 'desconhecido';
+            $type = $att['type'] ?? 'desconhecido';
+            $content = $att['content'] !== '' ? $att['content'] : ($att['summary'] ?? '');
+            $preview = mb_substr($content, 0, 4000);
+            
+            $attachmentsContext .= "--- ANEXO #{$num} ---\n";
+            $attachmentsContext .= "Caminho: {$path}\n";
+            $attachmentsContext .= "Tipo: {$type}\n";
+            $attachmentsContext .= "Conteúdo/Resumo:\n{$preview}\n\n";
+        }
+    }
 
     return <<<TXT
 PROMPT DO USUÁRIO:
@@ -164,18 +177,11 @@ CÓDIGO DO ARQUIVO ABERTO:
 
 ALTERAÇÕES NÃO COMMITADAS (git diff):
 {$diffPreview}
-
-ANEXO SELECIONADO:
-- Caminho: {$attachmentPath}
-- Tipo: {$attachmentType}
-
-CONTEÚDO / RESUMO DO ANEXO:
-{$attachmentPreview}
-
+{$attachmentsContext}
 INSTRUÇÃO:
 - Use a ESTRUTURA DO PROJETO para entender a arquitetura e onde criar novos arquivos se necessário.
-- Se houver anexo, considere-o como contexto adicional importante.
-- Relacione o anexo com o arquivo aberto quando fizer sentido.
+- Se houver anexos, considere-os como contexto adicional importante.
+- Relacione os anexos com o arquivo aberto e entre si quando fizer sentido.
 - Seja objetivo e técnico.
 TXT;
 }
