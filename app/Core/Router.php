@@ -18,12 +18,17 @@ class Router
         $this->addRoute('POST', $uri, $action);
     }
 
+    public function addTerminalRoutes(): void
+    {
+        $this->post('/workspace/terminal/execute', [App\Http\Controllers\TerminalController::class, 'execute']);
+    }
+
     protected function addRoute(string $method, string $uri, callable|array $action): void
     {
         $this->routes[$method][$uri] = $action;
     }
 
-    public function dispatch(Request $request, Response $response, View $view): void
+    public function dispatch(Request $request, Response $response, View $view, Logger $logger): void
     {
         $method = $request->method();
         $uri = $request->uri();
@@ -48,7 +53,7 @@ class Router
         if (is_array($action) && count($action) === 2) {
             [$controllerClass, $methodName] = $action;
 
-            $controller = new $controllerClass($view, $response);
+            $controller = new $controllerClass($view, $response, $logger);
 
             if (!method_exists($controller, $methodName)) {
                 throw new \RuntimeException("Método {$methodName} não existe no controller {$controllerClass}");

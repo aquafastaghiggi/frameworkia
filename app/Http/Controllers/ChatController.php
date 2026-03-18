@@ -16,6 +16,7 @@ use App\Documents\DocumentManager;
 use App\Git\GitService;
 use App\Workspace\WorkspaceManager;
 use App\Workspace\FileTree;
+use App\Chat\ChatHistoryManager;
 
 class ChatController extends Controller
 {
@@ -24,6 +25,7 @@ class ChatController extends Controller
     protected GitService $git;
     protected DocumentManager $documents;
     protected FileTree $fileTree;
+    protected ChatHistoryManager $chatHistoryManager;
 
     public function __construct(View $view, Response $response)
     {
@@ -46,6 +48,7 @@ class ChatController extends Controller
         $this->git = new GitService();
         $this->documents = new DocumentManager();
         $this->fileTree = new FileTree();
+        $this->chatHistoryManager = new ChatHistoryManager($basePath);
     }
 
     public function send(Request $request): void
@@ -134,28 +137,18 @@ class ChatController extends Controller
             throw new \RuntimeException($result['message'] ?? 'Erro ao processar chat com IA.');
         }
 
-        if (!isset($_SESSION['chat_history']) || !is_array($_SESSION['chat_history'])) {
-            $_SESSION['chat_history'] = [];
-        }
+        $chatHistory = $this->chatHistoryManager->loadHistory();
 
-        $_SESSION['chat_history'][] = [
-            'role' => 'user',
-            'content' => $prompt,
-            'created_at' => date('Y-m-d H:i:s'),
-        ];
+        $this->chatHistoryManager->addMessage("user", $prompt);
 
-        $_SESSION['chat_history'][] = [
-            'role' => 'assistant',
-            'content' => $result['response'],
-            'created_at' => date('Y-m-d H:i:s'),
-        ];
+        $this->chatHistoryManager->addMessage("assistant", $result["response"]);
 
         $_SESSION['last_ai_response'] = $result['response'];
         $_SESSION['last_ai_file_path'] = $filePath;
 
-        $this->success('Chat processado com sucesso.', [
-            'response' => $result['response'],
-            'history' => $_SESSION['chat_history'],
+        $this->success("Chat processado com sucesso.", [
+            "response" => $result["response"],
+            "history" => $this->chatHistoryManager->loadHistory(),
         ]);
     } catch (\Throwable $e) {
         throw $e;
@@ -164,10 +157,10 @@ class ChatController extends Controller
 
     public function clear(Request $request): void
     {
-        $_SESSION['chat_history'] = [];
+        $this->chatHistoryManager->clearHistory();
 
-        $this->success('Histórico limpo com sucesso.', [
-            'history' => [],
+        $this->success("Histórico limpo com sucesso.", [
+            "history" => [],
         ]);
     }
 }

@@ -119,6 +119,9 @@ class Application
                 $routes($this->router);
             }
 
+            // Adicionar rotas do terminal
+            $this->router->addTerminalRoutes();
+
             $this->router->dispatch(
                 $this->request,
                 $this->response,

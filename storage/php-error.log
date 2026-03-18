@@ -69,3 +69,8 @@ Stack trace:
 #3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
 #4 {main}
   thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19
+[17-Mar-2026 21:55:55 America/New_York] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.2-1ubuntu2.23. in /home/ubuntu/frameworkia/vendor/composer/platform_check.php on line 24
+[17-Mar-2026 21:57:34 America/New_York] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.2-1ubuntu2.23. in /home/ubuntu/frameworkia/vendor/composer/platform_check.php on line 24
+[17-Mar-2026 21:58:10 America/New_York] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.2-1ubuntu2.23. in /home/ubuntu/frameworkia/vendor/composer/platform_check.php on line 24
+[17-Mar-2026 21:58:29 America/New_York] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.2-1ubuntu2.23. in /home/ubuntu/frameworkia/vendor/composer/platform_check.php on line 24
+[17-Mar-2026 21:59:15 America/New_York] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.2-1ubuntu2.23. in /home/ubuntu/frameworkia/vendor/composer/platform_check.php on line 24

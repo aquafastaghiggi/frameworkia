@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($title ?? 'IDE') ?></title>
     <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl ?? '') ?>/assets/css/ide.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($baseUrl ?? '') ?>/assets/css/split-editor-terminal.css">
 </head>
 <body>
     <div class="ide-shell">
@@ -25,9 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
     <script src="<?= htmlspecialchars($baseUrl) ?>/assets/js/editor.js"></script>
     <script src="<?= htmlspecialchars($baseUrl) ?>/assets/js/chat.js"></script>
-</body>
-</html>
-</body>
-</html>
+    <script src="<?= htmlspecialchars($baseUrl) ?>/assets/js/split-editor.js"></script>
+    <script src="<?= htmlspecialchars($baseUrl) ?>/assets/js/terminal.js"></script>
 </body>
 </html>

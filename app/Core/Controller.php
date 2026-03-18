@@ -8,7 +8,8 @@ abstract class Controller
 {
     public function __construct(
         protected View $view,
-        protected Response $response
+        protected Response $response,
+        protected Logger $logger
     ) {
     }
 

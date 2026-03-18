@@ -6,59 +6,81 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455
 {
+    public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'Z' =>
+        'Z' => 
         array (
             'ZipStream\\' => 10,
         ),
-        'P' =>
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+        ),
+        'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
         ),
-        'M' =>
+        'M' => 
         array (
             'Matrix\\' => 7,
         ),
-        'C' =>
+        'C' => 
         array (
             'Composer\\Pcre\\' => 14,
             'Complex\\' => 8,
         ),
-        'A' =>
+        'A' => 
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'ZipStream\\' =>
+        'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Psr\\SimpleCache\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'PhpOffice\\PhpSpreadsheet\\' =>
+        'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'Matrix\\' =>
+        'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
-        'Composer\\Pcre\\' =>
+        'Composer\\Pcre\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
         ),
-        'Complex\\' =>
+        'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
-        'App\\' =>
+        'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Smalot\\PdfParser\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/smalot/pdfparser/src',
+            ),
         ),
     );
 
@@ -71,6 +93,7 @@ class ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitb69e0fa71ff74861cfb6ac46be4a3455::$classMap;
 
         }, null, ClassLoader::class);
