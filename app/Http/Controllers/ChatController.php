@@ -17,6 +17,7 @@ use App\Git\GitService;
 use App\Workspace\WorkspaceManager;
 use App\Workspace\FileTree;
 use App\Chat\ChatHistoryManager;
+use App\Queue\QueueService;
 
 class ChatController extends Controller
 {
@@ -26,6 +27,7 @@ class ChatController extends Controller
     protected DocumentManager $documents;
     protected FileTree $fileTree;
     protected ChatHistoryManager $chatHistoryManager;
+    protected QueueService $queueService;
 
     public function __construct(View $view, Response $response)
     {
@@ -49,6 +51,7 @@ class ChatController extends Controller
         $this->documents = new DocumentManager();
         $this->fileTree = new FileTree();
         $this->chatHistoryManager = new ChatHistoryManager($basePath);
+        $this->queueService = new QueueService($basePath);
     }
 
     public function send(Request $request): void
@@ -131,23 +134,14 @@ class ChatController extends Controller
             'role' => $role,
         ];
 
-        $result = $this->chatService->send($prompt, $context);
-
-        if (!$result['success']) {
-            throw new \RuntimeException($result['message'] ?? 'Erro ao processar chat com IA.');
-        }
-
-        $chatHistory = $this->chatHistoryManager->loadHistory();
+        $this->queueService->addJob("ai_chat", [
+            "prompt" => $prompt,
+            "context" => $context,
+        ]);
 
         $this->chatHistoryManager->addMessage("user", $prompt);
 
-        $this->chatHistoryManager->addMessage("assistant", $result["response"]);
-
-        $_SESSION['last_ai_response'] = $result['response'];
-        $_SESSION['last_ai_file_path'] = $filePath;
-
-        $this->success("Chat processado com sucesso.", [
-            "response" => $result["response"],
+        $this->success("Sua solicitação foi enviada para a fila e será processada em breve.", [
             "history" => $this->chatHistoryManager->loadHistory(),
         ]);
     } catch (\Throwable $e) {

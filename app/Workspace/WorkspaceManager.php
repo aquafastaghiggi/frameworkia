@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Workspace;
 
 use RuntimeException;
+use App\Core\Application;
+use App\Cache\FileCacheService;
 
 class WorkspaceManager
 {
+    protected FileCacheService $fileCacheService;
     public function __construct(
         protected string $basePath
     ) {
+        $this->fileCacheService = new FileCacheService($basePath);
     }
 
     protected function workspaceFile(): string
@@ -45,8 +49,9 @@ class WorkspaceManager
         );
 
         if ($result === false) {
-            throw new RuntimeException('Não foi possível salvar o arquivo de workspace.');
+            throw new RuntimeException("Não foi possível salvar o arquivo de workspace.");
         }
+        $this->fileCacheService->clear(); // Limpa o cache ao mudar o root path
     }
 
     public function getRootPath(): ?string
@@ -69,57 +74,66 @@ class WorkspaceManager
         return is_string($root) && is_dir($root);
     }
 
-    public function listFiles(string $relativePath = ''): array
+    public function listFiles(string $relativePath = "): array
     {
         $root = $this->getRootPath();
 
         if ($root === null) {
-            throw new RuntimeException('Nenhum workspace configurado.');
+            throw new RuntimeException("Nenhum workspace configurado.");
         }
 
         $targetPath = $this->resolvePath($relativePath);
 
         if (!is_dir($targetPath)) {
-            throw new RuntimeException('Diretório não encontrado.');
+            throw new RuntimeException("Diretório não encontrado.");
+        }
+
+        // Tenta buscar do cache
+        $cachedItems = $this->fileCacheService->get($targetPath);
+        if ($cachedItems !== null) {
+            return $cachedItems;
         }
 
         $items = scandir($targetPath);
 
         if ($items === false) {
-            throw new RuntimeException('Falha ao listar diretório.');
+            throw new RuntimeException("Falha ao listar diretório.");
         }
 
         $result = [];
 
         foreach ($items as $item) {
-            if ($item === '.' || $item === '..') {
+            if ($item === "." || $item === "..") {
                 continue;
             }
 
-            if ($item === '.git' || $item === 'vendor' || $item === 'node_modules') {
+            if ($item === ".git" || $item === "vendor" || $item === "node_modules") {
                 continue;
             }
 
             $fullPath = $targetPath . DIRECTORY_SEPARATOR . $item;
             $isDir = is_dir($fullPath);
 
-            $relative = ltrim(str_replace($root, '', $fullPath), DIRECTORY_SEPARATOR);
-            $relative = str_replace('\\', '/', $relative);
+            $relative = ltrim(str_replace($root, ", ", $fullPath), DIRECTORY_SEPARATOR);
+            $relative = str_replace("\\", "/", $relative);
 
             $result[] = [
-                'name' => $item,
-                'path' => $relative,
-                'type' => $isDir ? 'dir' : 'file',
+                "name" => $item,
+                "path" => $relative,
+                "type" => $isDir ? "dir" : "file",
             ];
         }
 
         usort($result, function (array $a, array $b) {
-            if ($a['type'] !== $b['type']) {
-                return $a['type'] === 'dir' ? -1 : 1;
+            if ($a["type"] !== $b["type"]) {
+                return $a["type"] === "dir" ? -1 : 1;
             }
 
-            return strcasecmp($a['name'], $b['name']);
+            return strcasecmp($a["name"], $b["name"]);
         });
+
+        // Armazena no cache antes de retornar
+        $this->fileCacheService->put($targetPath, $result);
 
         return $result;
     }
@@ -156,6 +170,13 @@ class WorkspaceManager
             throw new RuntimeException('Arquivo não encontrado para escrita.');
         }
 
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $allowedExtensions = Application::config('app.allowed_write_extensions', []);
+
+        if (!in_array($extension, $allowedExtensions, true)) {
+            throw new RuntimeException('Escrita não permitida para arquivos do tipo .' . $extension);
+        }
+
         if (!is_writable($path)) {
             throw new RuntimeException('Arquivo sem permissão de escrita.');
         }
@@ -167,8 +188,9 @@ class WorkspaceManager
         $result = file_put_contents($path, $content);
 
         if ($result === false) {
-            throw new RuntimeException('Não foi possível salvar o arquivo.');
+            throw new RuntimeException("Não foi possível salvar o arquivo.");
         }
+        $this->fileCacheService->forget(dirname($path)); // Invalida o cache do diretório pai
     }
 
     public function validateSyntax(string $path, string $content): void
@@ -238,8 +260,9 @@ class WorkspaceManager
         $result = file_put_contents($path, $content);
 
         if ($result === false) {
-            throw new RuntimeException('Não foi possível restaurar o backup.');
+            throw new RuntimeException("Não foi possível restaurar o backup.");
         }
+        $this->fileCacheService->forget(dirname($path)); // Invalida o cache do diretório pai
     }
 
     public function deleteBackup(string $relativePath): void

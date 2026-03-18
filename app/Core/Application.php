@@ -14,6 +14,7 @@ class Application
     protected Response $response;
     protected View $view;
     protected Logger $logger;
+    protected static array $configCache = [];
 
     public function __construct(
         protected string $basePath
@@ -103,6 +104,32 @@ class Application
     public function basePath(): string
     {
         return $this->basePath;
+    }
+
+    public static function config(string $key, $default = null)
+    {
+        if (empty(self::$configCache)) {
+            self::$configCache = require dirname(__DIR__, 2) . 
+'/config/app.php';
+        }
+
+        $parts = explode(".", $key);
+        $value = self::$configCache;
+
+        foreach ($parts as $part) {
+            if (is_array($value) && isset($value[$part])) {
+                $value = $value[$part];
+            } else {
+                return $default;
+            }
+        }
+
+        return $value;
+    }
+
+    public static function isAuthenticated(): bool
+    {
+        return $_SESSION["authenticated"] ?? false;
     }
 
     public function run(): void
