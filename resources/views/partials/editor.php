@@ -1,26 +1,22 @@
 <div class="editor-header">
-    <div class="editor-tab">
-        <?= htmlspecialchars($filePath !== '' ? $filePath : 'Nenhum arquivo aberto') ?>
+    <div class="tabs-container" id="editor-tabs">
+        <?php if (!empty($filePath)): ?>
+            <div class="editor-tab active" data-path="<?= htmlspecialchars($filePath) ?>">
+                <span class="tab-label"><?= htmlspecialchars(basename($filePath)) ?></span>
+                <span class="tab-close">×</span>
+            </div>
+        <?php endif; ?>
     </div>
 
-    <?php if (!empty($filePath)): ?>
-        <div class="editor-actions">
-            <button id="save-file-btn" class="save-button">Salvar</button>
-
+    <div class="editor-toolbar">
+        <?php if (!empty($filePath)): ?>
+            <button id="save-file-btn" class="save-button" title="Salvar (Ctrl+S)">Salvar</button>
             <?php if (!empty($gitData['enabled'])): ?>
-                <button
-                    id="stage-file-btn"
-                    class="git-button"
-                    data-path="<?= htmlspecialchars($filePath) ?>"
-                    data-stage-url="<?= htmlspecialchars($baseUrl) ?>/workspace/git/stage"
-                >
-                    Stage
-                </button>
+                <button id="stage-file-btn" class="git-button" data-path="<?= htmlspecialchars($filePath) ?>" data-stage-url="<?= htmlspecialchars($baseUrl) ?>/workspace/git/stage">Stage</button>
             <?php endif; ?>
-
             <span id="save-status" class="save-status"></span>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
 </div>
 
 <div class="editor-content">

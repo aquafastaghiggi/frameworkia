@@ -1,3 +1,4 @@
+<div class="sidebar-content">
 <h2 class="panel-title">Explorer</h2>
 
 <form method="POST" action="<?= htmlspecialchars($baseUrl) ?>/workspace/open" class="workspace-form">
@@ -48,3 +49,4 @@
         </li>
     <?php endforeach; ?>
 </ul>
+</div>

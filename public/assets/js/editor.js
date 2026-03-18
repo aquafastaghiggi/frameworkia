@@ -22,6 +22,17 @@ require(['vs/editor/editor.main'], function () {
             fontSize: 14,
             minimap: {
                 enabled: true
+            },
+            scrollBeyondLastLine: false,
+            renderWhitespace: 'selection',
+            tabSize: 4,
+            insertSpaces: true
+        });
+
+        // Atalho Ctrl+S para salvar
+        window.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function() {
+            if (saveButton && !saveButton.disabled) {
+                saveButton.click();
             }
         });
 

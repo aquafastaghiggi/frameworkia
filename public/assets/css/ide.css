@@ -47,14 +47,55 @@ a:hover {
 
 .ide-main {
     flex: 1;
-    display: grid;
-    grid-template-columns: 260px 1fr 260px;
+    display: flex;
     min-height: 0;
     overflow: hidden;
 }
 
-.ide-main.with-chat {
-    grid-template-columns: 250px 1fr 260px 340px;
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: #252526;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.editor-panel {
+    flex: 1;
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.inspector-panel {
+    width: 260px;
+    min-width: 260px;
+    background: #252526;
+    border-left: 1px solid #333;
+    padding: 16px;
+    overflow-y: auto;
+    display: none; /* Escondido por padrão para ganhar espaço */
+}
+
+.chat-panel {
+    width: 340px;
+    min-width: 340px;
+    background: #202124;
+    border-left: 1px solid #333;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -158,24 +199,74 @@ a:hover {
 }
 
 .editor-header {
-    height: 42px;
-    min-height: 42px;
-    border-bottom: 1px solid #333;
+    height: 35px;
+    min-height: 35px;
     background: #252526;
     display: flex;
     align-items: center;
-    padding: 0 12px;
-    gap: 12px;
     flex-shrink: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.editor-header::-webkit-scrollbar {
+    display: none;
+}
+
+.tabs-container {
+    display: flex;
+    height: 100%;
 }
 
 .editor-tab {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-bottom: none;
-    padding: 10px 14px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    background: #2d2d2d;
+    border-right: 1px solid #252526;
+    color: #969696;
     font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    position: relative;
+}
+
+.editor-tab.active {
+    background: #1e1e1e;
     color: #fff;
+}
+
+.editor-tab:hover {
+    background: #2a2d2e;
+}
+
+.tab-close {
+    margin-left: 8px;
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 10px;
+    visibility: hidden;
+}
+
+.editor-tab:hover .tab-close {
+    visibility: visible;
+}
+
+.tab-close:hover {
+    background: #454545;
+}
+
+.editor-toolbar {
+    margin-left: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    background: #252526;
+    border-left: 1px solid #333;
+    gap: 8px;
 }
 
 .editor-content {
