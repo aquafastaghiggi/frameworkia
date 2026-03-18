@@ -277,4 +277,77 @@ public function applyAiSuggestion(Request $request): void
             'output' => $output,
         ]);
     }
+
+    public function pull(Request $request): void
+    {
+        $rootPath = $this->workspace->getRootPath();
+        $remote = (string) $request->input('remote', 'origin');
+        $branch = (string) $request->input('branch');
+
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
+        }
+
+        $output = $this->git->pull($rootPath, $remote, $branch ?: null);
+
+        $this->success('Pull realizado com sucesso.', [
+            'output' => $output,
+        ]);
+    }
+
+    public function push(Request $request): void
+    {
+        $rootPath = $this->workspace->getRootPath();
+        $remote = (string) $request->input('remote', 'origin');
+        $branch = (string) $request->input('branch');
+
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
+        }
+
+        $output = $this->git->push($rootPath, $remote, $branch ?: null);
+
+        $this->success('Push realizado com sucesso.', [
+            'output' => $output,
+        ]);
+    }
+
+    public function listBranches(Request $request): void
+    {
+        $rootPath = $this->workspace->getRootPath();
+
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
+        }
+
+        $branches = $this->git->listBranches($rootPath);
+        $current = $this->git->getCurrentBranch($rootPath);
+
+        $this->success('Branches listadas com sucesso.', [
+            'branches' => $branches,
+            'current' => $current,
+        ]);
+    }
+
+    public function switchBranch(Request $request): void
+    {
+        $rootPath = $this->workspace->getRootPath();
+        $branch = (string) $request->input('branch');
+        $create = (bool) $request->input('create', false);
+
+        if (!$rootPath || !$this->git->isRepository($rootPath)) {
+            throw new RuntimeException('Workspace atual não é um repositório Git.');
+        }
+
+        if ($branch === '') {
+            throw new RuntimeException('Nome da branch não informado.');
+        }
+
+        $output = $this->git->switchBranch($rootPath, $branch, $create);
+
+        $this->success('Branch alterada com sucesso.', [
+            'output' => $output,
+            'current' => $branch,
+        ]);
+    }
 }

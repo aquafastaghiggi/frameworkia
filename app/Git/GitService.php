@@ -19,6 +19,34 @@ class GitService
         return trim($this->runGitCommand($path, ['branch', '--show-current']));
     }
 
+    public function listBranches(string $path): array
+    {
+        $output = trim($this->runGitCommand($path, ['branch', '--list']));
+        if ($output === '') {
+            return [];
+        }
+
+        $lines = explode("\n", $output);
+        $branches = [];
+        foreach ($lines as $line) {
+            $branches[] = trim(str_replace('*', '', $line));
+        }
+        return array_values(array_filter($branches));
+    }
+
+    public function switchBranch(string $path, string $branch, bool $create = false): string
+    {
+        $args = ['checkout'];
+        
+        if ($create) {
+            $args[] = '-B'; // Cria se não existir, reseta se já existir
+        }
+        
+        $args[] = $branch;
+
+        return trim($this->runGitCommand($path, $args));
+    }
+
     public function getStatus(string $path): array
     {
         $output = trim($this->runGitCommand($path, ['status', '--short']));
@@ -43,17 +71,20 @@ class GitService
         return array_values(array_filter(array_map('trim', explode("\n", $output))));
     }
 
-    public function getDiff(string $path, string $file): string
+    public function getDiff(string $path, string $file = ''): string
     {
-        $normalizedFile = str_replace('\\', '/', $file);
+        $args = ['diff'];
+        if ($file !== '') {
+            $args[] = '--';
+            $args[] = str_replace('\\', '/', $file);
+        }
 
-        return $this->runGitCommand($path, ['diff', '--', $normalizedFile], false);
+        return $this->runGitCommand($path, $args, false);
     }
 
     public function stageFile(string $path, string $file): void
     {
         $normalizedFile = str_replace('\\', '/', $file);
-
         $this->runGitCommand($path, ['add', '--', $normalizedFile]);
     }
 
@@ -66,6 +97,24 @@ class GitService
         }
 
         return trim($this->runGitCommand($path, ['commit', '-m', $message]));
+    }
+
+    public function pull(string $path, string $remote = 'origin', ?string $branch = null): string
+    {
+        $args = ['pull', $remote];
+        if ($branch) {
+            $args[] = $branch;
+        }
+        return trim($this->runGitCommand($path, $args));
+    }
+
+    public function push(string $path, string $remote = 'origin', ?string $branch = null): string
+    {
+        $args = ['push', $remote];
+        if ($branch) {
+            $args[] = $branch;
+        }
+        return trim($this->runGitCommand($path, $args));
     }
 
     protected function runGitCommand(string $workingPath, array $arguments, bool $throwOnError = true): string
@@ -85,15 +134,18 @@ class GitService
         $command = implode(' ', $parts) . ' 2>&1';
 
         $output = shell_exec($command);
-
-        if ($output === null) {
-            if ($throwOnError) {
-                throw new RuntimeException('Falha ao executar comando Git.');
+        $exitCode = 0;
+        
+        // shell_exec não retorna o exit code, vamos usar exec para comandos que precisam de validação rigorosa
+        if ($throwOnError) {
+            exec($command, $execOutput, $exitCode);
+            if ($exitCode !== 0) {
+                $errorMsg = !empty($execOutput) ? implode("\n", $execOutput) : 'Erro desconhecido ao executar comando Git.';
+                throw new RuntimeException("Git Error ($exitCode): " . $errorMsg);
             }
-
-            return '';
+            return implode("\n", $execOutput);
         }
 
-        return $output;
+        return $output ?? '';
     }
 }

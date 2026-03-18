@@ -18,6 +18,10 @@ return function (Router $router): void {
     $router->post('/workspace/save', [WorkspaceController::class, 'saveFile']);
     $router->post('/workspace/git/stage', [WorkspaceController::class, 'stageFile']);
     $router->post('/workspace/git/commit', [WorkspaceController::class, 'commit']);
+    $router->post('/workspace/git/pull', [WorkspaceController::class, 'pull']);
+    $router->post('/workspace/git/push', [WorkspaceController::class, 'push']);
+    $router->get('/workspace/git/branches', [WorkspaceController::class, 'listBranches']);
+    $router->post('/workspace/git/switch', [WorkspaceController::class, 'switchBranch']);
     $router->post('/workspace/apply-ai', [WorkspaceController::class, 'applyAiSuggestion']);
     $router->post('/workspace/undo-ai', [WorkspaceController::class, 'undoAiSuggestion']);
     $router->post('/attachments/upload', [UploadController::class, 'upload']);
