@@ -1,0 +1,380 @@
+🧠 ROADMAP TÉCNICO — MINI AI IDE (PHP)
+🎯 Objetivo do sistema
+
+Construir uma IDE web com IA integrada, capaz de:
+
+Ler, entender e modificar código
+
+Trabalhar com múltiplos tipos de arquivos (código, Excel, PDF)
+
+Operar sobre repositórios Git
+
+Executar tarefas de desenvolvimento automaticamente
+
+🧱 FASE 1 — FUNDAÇÃO (CONCLUÍDA)
+Arquitetura base
+
+✔ MVC simplificado
+✔ Router custom
+✔ Request / Response / View
+✔ Bootstrap do app
+
+Workspace
+
+✔ Seleção de diretório
+✔ Persistência
+✔ Navegação de arquivos
+✔ Leitura e escrita
+
+Segurança
+
+✔ Sanitização de paths
+✔ Proteção contra escape de diretório
+✔ Bloqueio de arquivos binários
+
+🧱 FASE 2 — IDE WEB (CONCLUÍDA)
+UI
+
+✔ Explorer lateral
+✔ Editor de código
+✔ Navegação entre arquivos
+
+Backend
+
+✔ Endpoint de leitura/escrita
+✔ Integração com workspace
+
+🧱 FASE 3 — GIT INTEGRATION (PARCIAL)
+Implementado
+
+✔ git status
+✔ git commit
+
+Pendente
+
+ git push
+
+ git pull
+
+ troca de branch
+
+ histórico de commits
+
+ diff viewer
+
+🧱 FASE 4 — IA INTEGRATION (CONCLUÍDA BASE)
+Implementado
+
+✔ integração OpenAI
+✔ modelo gpt-4o-mini
+✔ envio de prompt
+✔ resposta no frontend
+
+Arquitetura
+
+ChatController
+
+AIService
+
+PromptHandler
+
+🧱 FASE 5 — CODE MODIFICATION ENGINE (PARCIAL)
+Implementado
+
+✔ parser de instruções IA
+✔ aplicar alteração
+✔ desfazer alteração
+✔ backup .ai.bak
+
+Problemas atuais
+
+substituição destrutiva
+
+falta validação estrutural
+
+sem diff inteligente
+
+🧱 FASE 6 — DOCUMENT PROCESSING (PARCIAL)
+Implementado
+
+✔ upload de arquivos
+✔ armazenamento em sessão
+✔ leitura de Excel (PhpSpreadsheet)
+
+Parcial
+
+TextReader (básico)
+
+PdfReader (mock)
+
+Pendente
+
+ parser real de PDF
+
+ suporte a múltiplos arquivos
+
+ indexação de conteúdo
+
+🚨 FASE 7 — ESTABILIZAÇÃO (PRIORIDADE CRÍTICA)
+Objetivo
+
+Eliminar erros silenciosos e tornar o sistema confiável
+
+Tasks
+Backend
+
+ Handler global de exceções
+
+ Garantir JSON em TODAS respostas
+
+ Padronizar Response
+
+Logging
+
+ log por request
+
+ log de erros
+
+ log de prompts IA
+
+ log de respostas IA
+
+Debug
+
+ modo dev vs produção
+
+ logs estruturados
+
+🧠 FASE 8 — IA INTELIGENTE (CORE DO PRODUTO)
+Objetivo
+
+Transformar IA em agente real de desenvolvimento
+
+Tasks
+Contexto
+
+ enviar arquivo atual para IA
+
+ enviar estrutura do projeto
+
+ enviar arquivos relacionados
+
+Prompt Engineering
+
+ templates de prompt
+
+ roles (dev, reviewer, debugger)
+
+Safety
+
+ validação antes de aplicar código
+
+ limite de alteração por request
+
+🧩 FASE 9 — CODE ENGINE AVANÇADA
+Objetivo
+
+Parar de quebrar código
+
+Tasks
+
+ diff-based editing (não replace bruto)
+
+ parser de blocos (funções/classes)
+
+ validação sintática antes de salvar
+
+ preview obrigatório
+
+Futuro (nível alto)
+
+ AST parsing (PHP-Parser)
+
+📄 FASE 10 — DOCUMENT INTELLIGENCE
+Objetivo
+
+IA entender arquivos reais
+
+Tasks
+Excel
+
+ detectar cabeçalhos
+
+ inferir tipo de dados
+
+ gerar insights automáticos
+
+PDF
+
+ integrar biblioteca real (ex: smalot/pdfparser)
+
+Texto
+
+ análise semântica
+
+ chunking de conteúdo
+
+🔗 FASE 11 — MULTI-CONTEXT AI
+Objetivo
+
+IA trabalhar com múltiplas fontes
+
+Tasks
+
+ código + Excel
+
+ código + PDF
+
+ múltiplos arquivos ao mesmo tempo
+
+ memória de conversa
+
+🌐 FASE 12 — OLLAMA (IA LOCAL)
+Objetivo
+
+Reduzir custo e aumentar autonomia
+
+Tasks
+
+ adapter para Ollama
+
+ fallback automático (OpenAI ↔ local)
+
+ seleção de modelo
+
+🧬 FASE 13 — GIT AVANÇADO
+Tasks
+
+ push
+
+ pull
+
+ branches
+
+ merge assistido por IA
+
+ commit automático por IA
+
+🎨 FASE 14 — UX / UI PROFISSIONAL
+Tasks
+
+ layout tipo VSCode completo
+
+ tabs de arquivos
+
+ split editor
+
+ terminal embutido
+
+ loading states
+
+ notificações
+
+🔐 FASE 15 — SEGURANÇA
+Tasks
+
+ sandbox de arquivos
+
+ controle de permissões
+
+ limitar execuções perigosas
+
+ validação de comandos git
+
+⚡ FASE 16 — PERFORMANCE
+Tasks
+
+ cache de arquivos
+
+ lazy loading explorer
+
+ indexação de projeto
+
+ fila para IA (queue)
+
+🧠 FASE 17 — AI AGENT (NÍVEL AVANÇADO)
+Objetivo
+
+Transformar IA em "dev autônomo"
+
+Tasks
+
+ planejamento de tarefas
+
+ execução em etapas
+
+ auto-debug
+
+ loop de melhoria
+
+📦 FASE 18 — PRODUTO
+Tasks
+
+ autenticação de usuários
+
+ multi-workspace
+
+ deploy
+
+ versionamento do sistema
+
+ painel admin
+
+🧾 STACK ATUAL
+Backend
+
+PHP 8.2
+
+XAMPP
+
+Composer
+
+Libs
+
+OpenAI API
+
+PhpSpreadsheet
+
+Frontend
+
+HTML + JS puro
+
+CSS custom
+
+🧠 ARQUITETURA FINAL (VISÃO)
+UI (IDE)
+   ↓
+Controller
+   ↓
+Services
+   ↓
+Core (Workspace / Git / AI / Documents)
+   ↓
+External (OpenAI / Ollama / Filesystem / Git)
+🎯 PRIORIDADE REAL (ORDEM CORRETA)
+
+🔥 Estabilizar JSON e erros
+
+🔥 Garantir DocumentManager funcionando
+
+🔥 Melhorar aplicação de código (não quebrar mais)
+
+⚡ Melhorar contexto da IA
+
+⚡ Implementar Git completo
+
+🚀 Evoluir IA (multi-contexto)
+
+💡 VISÃO FINAL DO PRODUTO
+
+Você está construindo algo próximo de:
+
+👉 VSCode + Copilot + ChatGPT + leitura de dados reais
+
+E isso tem potencial de virar:
+
+ferramenta interna
+
+produto SaaS
+
+engine de automação de dev

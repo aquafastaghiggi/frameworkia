@@ -1,0 +1,71 @@
+[17-Mar-2026 20:39:54 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\DocumentManager" not found in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#1 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#2 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#3 {main}
+  thrown in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php on line 43
+[17-Mar-2026 20:43:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\DocumentManager" not found in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#1 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#2 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#3 {main}
+  thrown in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php on line 43
+[17-Mar-2026 20:47:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\DocumentManager" not found in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#1 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#2 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#3 {main}
+  thrown in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php on line 43
+[17-Mar-2026 20:47:24 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\DocumentManager" not found in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php:43
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#1 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#2 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#3 {main}
+  thrown in C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php on line 43
+[17-Mar-2026 20:49:03 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\TextReader" not found in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php:19
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#1 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#2 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#4 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19
+[17-Mar-2026 20:49:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\TextReader" not found in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php:19
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#1 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#2 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#4 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19
+[17-Mar-2026 20:49:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\TextReader" not found in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php:19
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#1 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#2 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#4 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19
+[17-Mar-2026 20:54:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Interface "App\Documents\DocumentReaderInterface" not found in C:\xampp\htdocs\framework\app\Documents\SpreadsheetReader.php:10
+Stack trace:
+#0 C:\xampp\htdocs\framework\vendor\composer\ClassLoader.php(576): include()
+#1 C:\xampp\htdocs\framework\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\framework\app\Documents\DocumentManager.php(19): Composer\Autoload\ClassLoader->loadClass('App\\Documents\\S...')
+#3 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#4 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#5 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#6 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#7 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\SpreadsheetReader.php on line 10
+[17-Mar-2026 21:09:41 Europe/Berlin] PHP Fatal error:  Uncaught Error: Class "App\Documents\TextReader" not found in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php:19
+Stack trace:
+#0 C:\xampp\htdocs\framework\app\Http\Controllers\ChatController.php(43): App\Documents\DocumentManager->__construct()
+#1 C:\xampp\htdocs\framework\app\core\Router.php(51): App\Http\Controllers\ChatController->__construct(Object(App\Core\View), Object(App\Core\Response))
+#2 C:\xampp\htdocs\framework\app\core\Application.php(41): App\Core\Router->dispatch(Object(App\Core\Request), Object(App\Core\Response), Object(App\Core\View))
+#3 C:\xampp\htdocs\framework\public\index.php(21): App\Core\Application->run()
+#4 {main}
+  thrown in C:\xampp\htdocs\framework\app\Documents\DocumentManager.php on line 19

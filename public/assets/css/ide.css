@@ -1,0 +1,526 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    overflow: hidden;
+}
+
+body {
+    min-height: 100vh;
+}
+
+a {
+    color: #4fc3f7;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ide-shell {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.topbar {
+    height: 48px;
+    min-height: 48px;
+    background: #2d2d30;
+    border-bottom: 1px solid #3c3c3c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.ide-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.ide-main.with-chat {
+    grid-template-columns: 250px 1fr 260px 340px;
+}
+
+.sidebar {
+    background: #252526;
+    border-right: 1px solid #333;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.editor-panel {
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.inspector-panel {
+    background: #252526;
+    border-left: 1px solid #333;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.statusbar {
+    height: 28px;
+    min-height: 28px;
+    background: #007acc;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.panel-title {
+    margin-top: 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.workspace-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.workspace-form input {
+    width: 100%;
+    padding: 8px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    color: #fff;
+}
+
+.workspace-form button {
+    padding: 8px 10px;
+    border: 0;
+    background: #0e639c;
+    color: #fff;
+    cursor: pointer;
+}
+
+.workspace-form button:hover {
+    background: #1177bb;
+}
+
+.workspace-meta,
+.workspace-nav,
+.info-block,
+.error-box {
+    margin-bottom: 16px;
+}
+
+.workspace-path {
+    word-break: break-all;
+    font-size: 13px;
+    color: #c5c5c5;
+}
+
+.file-tree {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-tree-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 14px;
+}
+
+.file-icon {
+    width: 20px;
+    text-align: center;
+}
+
+.editor-header {
+    height: 42px;
+    min-height: 42px;
+    border-bottom: 1px solid #333;
+    background: #252526;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.editor-tab {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-bottom: none;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #fff;
+}
+
+.editor-content {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 16px;
+}
+
+.editor-content pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #d4d4d4;
+}
+
+.empty-state {
+    color: #aaa;
+    padding: 40px;
+    text-align: center;
+}
+
+.info-block {
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.error-box {
+    padding: 10px;
+    background: #4b1f1f;
+    border: 1px solid #8b2f2f;
+    color: #f5c2c2;
+}
+
+#editor {
+    width: 100%;
+    height: 100%;
+}
+
+.editor-content {
+    flex: 1;
+    height: 100%;
+}
+
+.editor-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-button {
+    padding: 6px 12px;
+    border: 0;
+    background: #0e639c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.save-button:hover {
+    background: #1177bb;
+}
+
+.save-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.save-status {
+    font-size: 12px;
+    color: #c5c5c5;
+}
+
+.git-list {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+}
+
+.git-list li {
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.git-button {
+    padding: 6px 12px;
+    border: 0;
+    background: #3a3d41;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.git-button:hover {
+    background: #4a4d52;
+}
+
+.commit-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.commit-message {
+    width: 100%;
+    min-height: 70px;
+    margin-top: 10px;
+    padding: 8px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    color: #fff;
+    resize: vertical;
+}
+
+.commit-status {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #c5c5c5;
+}
+
+.diff-panel {
+    border-top: 1px solid #333;
+    background: #181818;
+    max-height: 240px;
+    overflow: auto;
+    flex-shrink: 0;
+}
+
+.diff-header {
+    padding: 10px 12px;
+    background: #252526;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.diff-content {
+    margin: 0;
+    padding: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #dcdcdc;
+}
+
+.diff-empty {
+    padding: 12px;
+    color: #aaa;
+    font-size: 13px;
+}
+
+.chat-panel {
+    background: #202124;
+    border-left: 1px solid #333;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-history {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid #333;
+    background: #1b1b1b;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.chat-message-user {
+    background: #10324a;
+    border: 1px solid #1d567c;
+}
+
+.chat-message-assistant {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.chat-role {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #9cdcfe;
+}
+
+.chat-content {
+    word-break: break-word;
+}
+
+.chat-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.chat-textarea {
+    width: 100%;
+    min-height: 90px;
+    max-height: 140px;
+    padding: 10px;
+    background: #1e1e1e;
+    border: 1px solid #3c3c3c;
+    color: #fff;
+    resize: vertical;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chat-button {
+    padding: 8px 12px;
+    border: 0;
+    background: #0e639c;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.chat-button:hover {
+    background: #1177bb;
+}
+
+.chat-button.secondary {
+    background: #3a3d41;
+}
+
+.chat-button.secondary:hover {
+    background: #4a4d52;
+}
+
+.chat-status {
+    font-size: 12px;
+    color: #c5c5c5;
+}
+
+.empty-chat {
+    color: #aaa;
+    font-size: 13px;
+    padding: 12px;
+}
+
+
+.chat-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chat-button.warning {
+    background: #a14d00;
+}
+
+.chat-button.warning:hover {
+    background: #c15d00;
+}
+
+.attachment-box {
+    border: 1px solid #333;
+    background: #1b1b1b;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.attachment-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #9cdcfe;
+}
+
+.attachment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.attachment-list {
+    max-height: 140px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.attachment-item {
+    border: 1px solid #333;
+    background: #252526;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+}
+
+.attachment-item {
+    border: 1px solid #333;
+    background: #252526;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.attachment-item input[type="radio"] {
+    margin-top: 3px;
+}
+
+.attachment-delete {
+    margin-top: 6px;
+    font-size: 11px;
+    background: #a33;
+    border: none;
+    color: #fff;
+    padding: 3px 6px;
+    cursor: pointer;
+}
